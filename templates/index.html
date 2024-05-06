@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Model Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        img {
+            max-width: 100%;  /* Ensures the image is responsive */
+            height: auto;     /* Maintains the aspect ratio */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-right: 15px;
+        }
+
+        main {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='img.png') }}" alt="Descriptive Text">
+        <h2>Noise Trend Prediction</h2>
+    </header>
+    <main>
+        <form action="{{ url_for('predict') }}" method="post" class="prediction-form">
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="number" id="year" name="Year">
+            </div>
+            <div class="form-group">
+                <label for="month">Month:</label>
+                <input type="number" id="month" name="Month">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <select id="name" name="Name">
+                    <option value="0">ABITS</option>
+                    <option value="1">ASHP Hospital</option>
+                    <option value="2">Anand Vihar</option>
+                    <option value="3">Andheri</option>
+                    <option value="4">Anna Nagar</option>
+                    <option value="5">BTM</option>
+                    <option value="6">Bag Bazar</option>
+                    <option value="7">Bandra</option>
+                    <option value="8">Birati Neelachal</option>
+                    <option value="9">CCS Airport</option>
+                    <option value="10">CPCB, HQ</option>
+                    <option value="11">CST</option>
+                    <option value="12">Chembur</option>
+                    <option value="13">Chinhat</option>
+                    <option value="14">Civil Lines</option>
+                    <option value="15">DCE, Bawana</option>
+                    <option value="16">Dilshad Garden</option>
+                    <option value="17">Domlur</option>
+                    <option value="18">Eye Hospital</option>
+                    <option value="19">Gachibowli</option>
+                    <option value="20">Gaddapotharam</option>
+                    <option value="21">Gol Park</option>
+                    <option value="22">Gomti Nagar</option>
+                    <option value="23">Guindy</option>
+                    <option value="24">Hazratganj</option>
+                    <option value="25">IT College</option>
+                    <option value="26">ITO</option>
+                    <option value="27">Indira Nagar</option>
+                    <option value="28">JNTU</option>
+                    <option value="29">Jeedimetla</option>
+                    <option value="30">Jublee Hills</option>
+                    <option value="31">Kandivali</option>
+                    <option value="32">MPCB, HQ</option>
+                    <option value="33">Mandir Marg</option>
+                    <option value="34">Marathahalli</option>
+                    <option value="35">NIMHANS</option>
+                    <option value="36">NSIT, Dwarka</option>
+                    <option value="37">New Market</option>
+                    <option value="38">Nisarga Bhawan</option>
+                    <option value="39">P.G.I. Hospital</option>
+                    <option value="40">Pallikaranai</option>
+                    <option value="41">Paradise</option>
+                    <option value="42">Parisar Bhawan</option>
+                    <option value="43">Patauli</option>
+                    <option value="44">Peeniya</option>
+                    <option value="45">Perambur</option>
+                    <option value="46">Powai</option>
+                    <option value="47">Punjabi Bagh</option>
+                    <option value="48">R G Kar Hospital</option>
+                    <option value="49">R. K. Puram</option>
+                    <option value="50">R.V.C.E.</option>
+                    <option value="51">RSC Aliganj</option>
+                    <option value="52">SSKM Hospital</option>
+                    <option value="53">Sowcarpet</option>
+                    <option value="54">T. Nagar</option>
+                    <option value="55">TSPCB</option>
+                    <option value="56">Talkatora</option>
+                    <option value="57">Tarnaka</option>
+                    <option value="58">Tartala</option>
+                    <option value="59">Thane</option>
+                    <option value="60">Tollygunge</option>
+                    <option value="61">Triplicane</option>
+                    <option value="62">UPPCB HQ</option>
+                    <option value="63">VASHI Hospital</option>
+                    <option value="64">Velachery</option>
+                    <option value="65">WBPCB Headquarter</option>
+                    <option value="66">Washermanpet</option>
+                    <option value="67">Whitefield</option>
+                    <option value="68">Yeshwanthpur</option>
+                    <option value="69">Zoo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <select id="city" name="City">
+                    <option value="0">Bengaluru</option>
+                    <option value="1">Chennai</option>
+                    <option value="2">Delhi</option>
+                    <option value="3">Hyderabad</option>
+                    <option value="4">Kolkata</option>
+                    <option value="5">Lucknow</option>
+                    <option value="6">Mumbai</option>
+                    <option value="7">Navi Mumbai</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="state">State:</label>
+                <select id="state" name="State">
+                    <option value="0">Delhi</option>
+                    <option value="1">Karnataka</option>
+                    <option value="2">Maharashtra</option>
+                    <option value="3">Tamil Nadu</option>
+                    <option value="4">Telangana</option>
+                    <option value="5">Uttar Pradesh</option>
+                    <option value="6">West Bengal</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select id="type" name="Type">
+                    <option value="0">Commercial</option>
+                    <option value="1">Industrial</option>
+                    <option value="2">Residential</option>
+                    <option value="3">Silence</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="time">Time of Day (day/night):</label>
+                <input type="text" id="time" name="Time">
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction_text %}
+            <h3>{{ prediction_text }}</h3>
+        {% endif %}
+    </main>
+</body>
+</html>
